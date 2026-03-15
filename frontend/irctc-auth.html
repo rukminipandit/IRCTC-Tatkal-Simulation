@@ -353,7 +353,7 @@ async function doSignIn() {
   btn.classList.add('loading');
   btn.disabled = true;
   try {
-    const res = await fetch('http://localhost:3000/api/auth/login', {
+    const res = await fetch('https://irctc-tatkal-simulation-production.up.railway.app/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: username, password: password })
@@ -393,7 +393,7 @@ async function doSignUp() {
   btn.classList.add('loading');
   btn.disabled = true;
   try {
-    const res = await fetch('http://localhost:3000/api/auth/signup', {
+    const res = await fetch('https://irctc-tatkal-simulation-production.up.railway.app/api/auth/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ full_name: fullName, email: email, password: password, phone: phone })
