@@ -3,7 +3,7 @@
    ================================================ */
 
 // -- BACKEND CONNECTION --
-const BASE_URL = 'http://localhost:3000/api';
+const BASE_URL = 'https://irctc-tatkal-simulation-production.up.railway.app/api';
 
 function getToken() { return localStorage.getItem('token'); }
 
