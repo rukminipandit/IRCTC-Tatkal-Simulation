@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IRCTC Tatkal Booking Simulator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="irctc-style.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="header-left" onclick="showScreen('scrSearch')" title="Home">
+            <div class="header-icon">🚆</div>
+            <div>
+                <div class="header-title">IRCTC Tatkal Booking Simulator</div>
+                <div class="header-sub">High Traffic Train Ticket Booking System</div>
+            </div>
+        </div>
+        <div class="live-pill">
+            <div class="live-dot"></div>Live System</div>
+    </header>
+    <div class="prog-strip">
+        <div class="ps a"></div>
+        <div class="ps b"></div>
+        <div class="ps c"></div>
+    </div>
+    <div class="toast" id="toastEl">🔔</div>
+    <div class="page">
+
+        <!-- ══ SCREEN 1: SEARCH ══ -->
+        <div class="screen active" id="scrSearch">
+            <div class="search-wrap">
+                <div class="search-card">
+                    <div class="search-heading">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg> Search Trains
+                    </div>
+                    <div class="search-fields">
+                        <div class="autocomplete-wrap">
+                            <div class="sf-label"><span class="dot-pin dp-from"></span> From Station</div>
+                            <input class="sf-input" type="text" id="fromInput" value="Mumbai Central" placeholder="Enter source station" autocomplete="off" oninput="acFilter('from')" onfocus="acFilter('from')" onblur="acClose('from',300)">
+                            <div class="autocomplete-dropdown" id="acFrom"></div>
+                        </div>
+                        <button class="swap-circle" onclick="swapStations()" title="Swap">⇄</button>
+                        <div class="autocomplete-wrap">
+                            <div class="sf-label"><span class="dot-pin dp-to"></span> To Station</div>
+                            <input class="sf-input" type="text" id="toInput" value="New Delhi" placeholder="Enter destination" autocomplete="off" oninput="acFilter('to')" onfocus="acFilter('to')" onblur="acClose('to',300)">
+                            <div class="autocomplete-dropdown" id="acTo"></div>
+                        </div>
+                        <button class="search-btn" onclick="doSearch()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            Search Train
+          </button>
+                    </div>
+                </div>
+                <div class="search-empty">
+                    <div class="se-icon">🚞</div>
+                    <p>Enter your journey details and click "Search Train"</p><span>Available trains will appear here</span></div>
+            </div>
+        </div>
+
+        <!-- ══ SCREEN 2: TRAINS ══ -->
+        <div class="screen" id="scrTrains">
+            <button class="back-link" onclick="showScreen('scrSearch')">← Back to Search</button>
+            <div class="trains-header">
+                <h2>Available Trains</h2><span class="found-badge">3 found</span></div>
+
+            <div class="train-card" id="tc2" onclick="selectTrain(2)">
+                <div class="tc-top">
+                    <div class="tc-info">
+                        <div class="tc-icon">🚅</div>
+                        <div>
+                            <div class="tc-num">#12009 <span class="tc-selected-tag">SELECTED</span></div>
+                            <div class="tc-name">Shatabdi Express</div>
+                        </div>
+                    </div>
+                    <div class="tatkal-tag orange">🏷️ TATKAL: 8 seats</div>
+                </div>
+                <div class="tc-route">
+                    <div>
+                        <div class="tc-time">06:25</div>
+                        <div class="tc-station">📍 Mumbai Central</div>
+                    </div>
+                    <div class="tc-line">
+                        <div class="tc-dots">
+                            <div class="tc-dot s"></div>
+                            <div class="tc-seg"></div>
+                            <div class="tc-dot e"></div>
+                        </div>
+                        <div class="tc-meta"><span>⏱ 16h 05m</span><span>CC / EC</span></div>
+                    </div>
+                    <div style="text-align:right">
+                        <div class="tc-time">22:30</div>
+                        <div class="tc-station">📍 New Delhi</div>
+                    </div>
+                </div>
+                <div class="tc-footer">
+                    <div class="tc-seats">👥 <strong>8 tatkal seats left</strong><span class="tc-star">⭐ 4.2</span></div>
+                    <div class="tc-price">
+                        <div class="tc-price-old">₹1120</div>
+                        <div class="tc-price-new">₹1420 <span class="tc-price-tag">(+₹300 tatkal)</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="train-card" id="tc3" onclick="selectTrain(3)">
+                <div class="tc-top">
+                    <div class="tc-info">
+                        <div class="tc-icon">🚃</div>
+                        <div>
+                            <div class="tc-num">#22691 <span class="tc-selected-tag">SELECTED</span></div>
+                            <div class="tc-name">Karnataka Express</div>
+                        </div>
+                    </div>
+                    <div class="tatkal-tag">🏷️ TATKAL: 11 seats</div>
+                </div>
+                <div class="tc-route">
+                    <div>
+                        <div class="tc-time">20:00</div>
+                        <div class="tc-station">📍 Mumbai Central</div>
+                    </div>
+                    <div class="tc-line">
+                        <div class="tc-dots">
+                            <div class="tc-dot s"></div>
+                            <div class="tc-seg"></div>
+                            <div class="tc-dot e"></div>
+                        </div>
+                        <div class="tc-meta"><span>⏱ 33h 55m</span><span>1A / 2A / 3A</span></div>
+                    </div>
+                    <div style="text-align:right">
+                        <div class="tc-time">05:55</div>
+                        <div class="tc-station">📍 New Delhi</div>
+                    </div>
+                </div>
+                <div class="tc-footer">
+                    <div class="tc-seats">👥 <strong>11 tatkal seats left</strong><span class="tc-star">⭐ 3.8</span></div>
+                    <div class="tc-price">
+                        <div class="tc-price-old">₹980</div>
+                        <div class="tc-price-new">₹1280 <span class="tc-price-tag">(+₹300 tatkal)</span></div>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align:center;margin-top:6px"><button class="continue-btn" onclick="showDashboard()">Continue with Selected Train →</button></div>
+        </div>
+
+        <!-- ══ SCREEN 3: DASHBOARD ══ -->
+        <div class="screen" id="scrDash">
+            <button class="back-link" onclick="showScreen('scrTrains')">← Back to Train List</button>
+            <div class="dash-title-row">
+                <div class="dash-title">Tatkal Booking Dashboard</div>
+                <div class="tatkal-mode-badge">⚡ Tatkal Mode</div>
+            </div>
+            <div class="alert-banner">
+                <span style="font-size:16px">⚠️</span>
+                <div><strong>High Traffic Alert:</strong> Server is under heavy load. Multiple users are booking simultaneously. Complete your booking quickly!</div>
+                <div class="alert-signal">📶</div>
+            </div>
+
+            <div class="dash-grid">
+                <!-- LEFT: Timer + Action -->
+                <div>
+                    <div class="timer-box">
+                        <div class="tb-header">
+                            <div>
+                                <div class="tb-label">Tatkal Booking Opens In</div>
+                                <div class="tb-closed" id="tatkalBadge">BOOKING CLOSED</div>
+                            </div>
+                            <button class="tb-reset" onclick="resetTimer()">↺ Reset</button>
+                        </div>
+                        <div class="countdown waiting"><span id="cd-h">00</span><span class="countdown-sep">:</span><span id="cd-m">00</span><span class="countdown-sep">:</span><span id="cd-s">15</span></div>
+                        <div class="open-msg" id="openMsg">⏳ Tatkal booking opens at <strong>10:00 PM</strong></div>
+                        <div class="timer-bar waiting"></div>
+                    </div>
+                    <div class="action-box">
+                        <div class="action-title">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg> Booking Action
+                        </div>
+
+                        <!-- Seats remaining -->
+                        <div class="seats-stat">
+                            <div class="ss-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg> Seats Remaining</div>
+                            <div class="ss-num" id="seatCount">40</div>
+                        </div>
+                        <div class="avail-label-row"><span>Availability</span><span id="availText">40/40 seats</span></div>
+                        <div class="avail-track">
+                            <div class="avail-fill" id="availFill" style="width:100%"></div>
+                        </div>
+
+                        <!-- ── SEAT PREFERENCE SELECTOR ── -->
+                        <div class="seat-selector-box" id="seatSelectorBox">
+                            <div class="ssp-title">🪑 Select Seat Preference</div>
+
+                            <!-- Class / Quota -->
+                            <div class="ssp-group">
+                                <div class="ssp-label">Coach Class</div>
+                                <div class="ssp-chips" id="chipClass">
+                                    <button class="ssp-chip active" onclick="selectChip('chipClass',this,'3A')">3A — AC 3 Tier</button>
+                                    <button class="ssp-chip" onclick="selectChip('chipClass',this,'2A')">2A — AC 2 Tier</button>
+                                    <button class="ssp-chip" onclick="selectChip('chipClass',this,'SL')">SL — Sleeper</button>
+                                    <button class="ssp-chip" onclick="selectChip('chipClass',this,'1A')">1A — AC First</button>
+                                </div>
+                            </div>
+
+                            <!-- Berth type -->
+                            <div class="ssp-group">
+                                <div class="ssp-label">Berth Preference</div>
+                                <div class="ssp-chips" id="chipBerth">
+                                    <button class="ssp-chip active" onclick="selectChip('chipBerth',this,'LB')">LB Lower</button>
+                                    <button class="ssp-chip" onclick="selectChip('chipBerth',this,'MB')">MB Middle</button>
+                                    <button class="ssp-chip" onclick="selectChip('chipBerth',this,'UB')">UB Upper</button>
+                                    <button class="ssp-chip" onclick="selectChip('chipBerth',this,'SL')">SL Side Lower</button>
+                                    <button class="ssp-chip" onclick="selectChip('chipBerth',this,'SU')">SU Side Upper</button>
+                                </div>
+                            </div>
+
+                            <!-- Quota -->
+                            <div class="ssp-group">
+                                <div class="ssp-label">Quota</div>
+                                <div class="ssp-chips" id="chipQuota">
+                                    <button class="ssp-chip active" onclick="selectChip('chipQuota',this,'TQ')">⚡ Tatkal (TQ)</button>
+                                    <button class="ssp-chip" onclick="selectChip('chipQuota',this,'LD')">Ladies (LD)</button>
+                                    <button class="ssp-chip" onclick="selectChip('chipQuota',this,'HP')">Handicapped (HP)</button>
+                                </div>
+                            </div>
+
+                            <!-- Passenger details row -->
+                            <div class="ssp-group">
+                                <div class="ssp-label">Passenger Name</div>
+                                <input class="ssp-input" type="text" id="passengerName" placeholder="As on ID proof" value="Rahul Sharma">
+                            </div>
+
+                            <!-- Boarding station + concession -->
+                            <div class="ssp-row-2">
+                                <div class="ssp-group" style="flex:1">
+                                    <div class="ssp-label">Boarding Station</div>
+                                    <select class="ssp-select" id="boardingStation">
+                  <option value="BCT">Mumbai Central (BCT)</option>
+                  <option value="DR">Dadar (DR)</option>
+                  <option value="TNA">Thane (TNA)</option>
+                  <option value="KDGN">Kalyan (KDGN)</option>
+                </select>
+                                </div>
+                                <div class="ssp-group" style="flex:1">
+                                    <div class="ssp-label">Concession</div>
+                                    <select class="ssp-select" id="concessionType">
+                  <option value="GN">General (No concession)</option>
+                  <option value="SR">Senior Citizen</option>
+                  <option value="ST">Student</option>
+                  <option value="PH">Physically Handicapped</option>
+                </select>
+                                </div>
+                            </div>
+
+                            <!-- Travel Insurance toggle -->
+                            <div class="ssp-insurance-row">
+                                <div class="ssp-ins-left">
+                                    <div class="ssp-ins-title">🛡️ Travel Insurance</div>
+                                    <div class="ssp-ins-sub">₹0.45/passenger — covers up to ₹10 lakh</div>
+                                </div>
+                                <label class="ssp-toggle">
+                <input type="checkbox" id="insuranceToggle" checked>
+                <span class="ssp-toggle-track"><span class="ssp-toggle-thumb"></span></span>
+              </label>
+                            </div>
+
+                            <!-- Auto-upgrade toggle -->
+                            <div class="ssp-insurance-row" style="margin-top:8px">
+                                <div class="ssp-ins-left">
+                                    <div class="ssp-ins-title">⬆️ Auto-upgrade if available</div>
+                                    <div class="ssp-ins-sub">Upgrade to higher class if current class is full</div>
+                                </div>
+                                <label class="ssp-toggle">
+                <input type="checkbox" id="autoUpgradeToggle">
+                <span class="ssp-toggle-track"><span class="ssp-toggle-thumb"></span></span>
+              </label>
+                            </div>
+
+                            <!-- Selected summary chip -->
+                            <div class="ssp-summary" id="seatSummary">
+                                <span>Selected: </span><span id="seatSummaryText" style="font-weight:700;color:var(--navy)">3A · Lower Berth · Tatkal</span>
+                            </div>
+                        </div>
+
+                        <div class="confirmed-strip" id="confirmedStrip">
+                            <span style="font-size:18px">ℹ️</span>
+                            <div><strong>Booking Not Started</strong> Tatkal opens at 10:00 PM. Be ready!</div>
+                        </div>
+
+                        <button class="book-btn" id="bookBtn" onclick="openPayment()" disabled>🔒 Booking Not Open Yet</button>
+                        <div class="soldout-msg" id="soldoutMsg" style="display:none">
+                            ❌ All Tatkal seats are sold out. Join the waitlist next time.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT: Activity -->
+                <div class="activity-box">
+                    <div class="activity-title-row">
+                        <div class="activity-title"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> Booking Activity</div>
+                        <div class="attempts-badge" id="attemptsBadge">0 attempts</div>
+                    </div>
+                    <div class="act-stats">
+                        <div class="as-box g">
+                            <div class="as-num" id="statConf">0</div>
+                            <div class="as-lbl">Confirmed</div>
+                        </div>
+                        <div class="as-box r">
+                            <div class="as-num" id="statSold">0</div>
+                            <div class="as-lbl">Sold Out</div>
+                        </div>
+                        <div class="as-box y">
+                            <div class="as-num" id="statWait">0</div>
+                            <div class="as-lbl">Waitlist</div>
+                        </div>
+                    </div>
+                    <div class="act-list" id="activityList">
+                        <div style="text-align:center;padding:30px 0;color:var(--muted);font-size:13px;">⏳ Waiting for booking to open at 10:00 PM…</div>
+                    </div>
+                </div>
+
+                <!-- ══ ADDITION 1: SYSTEM INTERNALS ══ -->
+                <div class="internals-panel" style="grid-column:1/-1">
+                    <div class="internals-header" onclick="toggleInternals()">
+                        <div class="internals-header-left">
+                            <span class="internals-badge" id="intBadge" style="color:#fbbf24">WAITING</span>
+                            <span class="internals-title">⚙️ System Internals — Gate Mechanism</span>
+                            <span style="font-size:12px;color:#475569;margin-left:8px">Atomic lock · Inventory floor · Thread log</span>
+                        </div>
+                        <span class="internals-toggle" id="intArrow">▼</span>
+                    </div>
+                    <div class="internals-body" id="intBody">
+                        <div style="font-size:11px;color:#64748b;margin-bottom:10px;font-family:'Courier New',monospace">
+                            // Each booking passes through an atomic DECR gate. Only one thread holds the lock at a time.<br> // If inventory = 0, the request is rejected before decrement. Floor is strictly enforced.
+                        </div>
+                        <div class="int-log" id="intLog">
+                            <div class="il-row"><span class="il-ts">--:--:--</span><span class="il-tag info">INFO</span><span class="il-msg">System ready — waiting for booking window to open</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ══ ADDITION 2: RACE CONDITION SIMULATOR ══ -->
+                <div class="race-panel" style="grid-column:1/-1">
+                    <div class="race-top">
+                        <div>
+                            <div class="race-title">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Race Condition Simulator
+                            </div>
+                            <div class="race-desc">What happens without the gate vs. with atomic locking — run to see the difference</div>
+                        </div>
+                        <div class="race-actions">
+                            <button class="race-btn" id="raceBtnEl" onclick="runRace()">▶ Run simulation</button>
+                            <span class="race-hint">Two users, one seat remaining</span>
+                        </div>
+                    </div>
+                    <div class="race-grid">
+                        <div class="race-col bad">
+                            <div class="race-col-title"><span class="rc-dot"></span>Without atomic gate — inventory goes negative</div>
+                            <div class="race-steps">
+                                <div class="rs rs-bad">inventory = 1</div>
+                                <div class="rs rs-bad">User A reads inventory → 1 ✓</div>
+                                <div class="rs rs-bad hl">User B reads inventory → 1 ✓ (same instant!)</div>
+                                <div class="rs rs-bad">User A writes → 0 (confirmed)</div>
+                                <div class="rs rs-bad">User B writes → -1 (also confirmed!)</div>
+                                <div class="rs rs-bad">INVENTORY IS NEGATIVE — oversold by 1</div>
+                            </div>
+                        </div>
+                        <div class="race-col good">
+                            <div class="race-col-title"><span class="rc-dot"></span>With atomic gate — floor strictly enforced</div>
+                            <div class="race-steps">
+                                <div class="rs rs-good">inventory = 1</div>
+                                <div class="rs rs-good">User A acquires lock</div>
+                                <div class="rs rs-good">User B → waiting in queue…</div>
+                                <div class="rs rs-good">ATOMIC DECR → 0 [User A confirmed ✓]</div>
+                                <div class="rs rs-good">Lock released. User B acquires lock</div>
+                                <div class="rs rs-good">CHECK: inventory = 0 → reject before DECR</div>
+                                <div class="rs rs-good">User B rejected cleanly — floor = 0, never negative</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ══ ADDITION 3: LIVE SYSTEM LOG ══ -->
+                <div class="syslog-panel" style="grid-column:1/-1">
+                    <div class="syslog-hd">
+                        <div class="syslog-hd-left">
+                            <span class="syslog-badge">LIVE</span>
+                            <span class="syslog-title">📡 Live System Log</span>
+                        </div>
+                        <div class="syslog-queue">Queue depth: <span class="syslog-qnum" id="syslogQNum">—</span> requests</div>
+                    </div>
+                    <div class="syslog-body">
+                        <div class="syslog-scroll" id="syslogBody">
+                            <div class="sl-row"><span class="sl-ts">--:--:--</span><span class="sl-tag info">INIT</span><span class="sl-msg">System ready — waiting for booking window to open</span></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /dash-grid -->
+        </div>
+        <!-- /scrDash -->
+
+        <!-- ══ SCREEN 4: TICKET ══ -->
+        <div class="screen" id="scrTicket">
+            <button class="back-link" onclick="showScreen('scrDash')">← Back to Dashboard</button>
+            <div class="success-block">
+                <div class="success-ring">✅</div>
+                <h2>Ticket Confirmed!</h2>
+                <p>Your Tatkal booking is confirmed. Have a safe journey!</p>
+                <div class="booking-id-ok">Booking ID generated successfully</div>
+            </div>
+            <div class="ticket-wrap" id="printTicket">
+                <div class="ticket-card">
+                    <div class="ticket-hd">
+                        <div class="th-brand">
+                            <div class="th-icon">🚆</div>
+                            <div>
+                                <div class="th-sub">Indian Railways</div>
+                                <div class="th-name">Mumbai Rajdhani Express</div>
+                            </div>
+                        </div>
+                        <div class="th-right">
+                            <div class="th-tatkal">⚡ TATKAL</div>
+                            <div class="th-num">#12951</div>
+                        </div>
+                    </div>
+                    <div class="ticket-route">
+                        <div>
+                            <div class="tr-time">17:00</div>
+                            <div class="tr-station" id="tkt-boarding">📍 Mumbai Central</div>
+                        </div>
+                        <div class="tr-mid">
+                            <div class="tr-line">
+                                <div class="tr-line-l"></div><span class="tr-train-icon">🚆</span>
+                                <div class="tr-line-r"></div>
+                            </div>
+                            <div class="tr-dur">⏱ 15h 35m</div>
+                            <div class="tr-cls" id="tkt-class">3A / 2A</div>
+                        </div>
+                        <div style="text-align:right">
+                            <div class="tr-time">08:35</div>
+                            <div class="tr-station">📍 New Delhi</div>
+                        </div>
+                    </div>
+                    <div class="ticket-body">
+                        <div class="pnr-block">
+                            <div class="pnr-lbl">PNR Number</div>
+                            <div class="pnr-num">10943763</div>
+                            <div class="pnr-status">CONFIRMED</div>
+                        </div>
+                        <div class="detail-list">
+                            <div class="dl-row">
+                                <div class="dl-key">👤 Passenger Name</div>
+                                <div class="dl-val" id="tkt-name">Rahul Sharma</div>
+                            </div>
+                            <div class="dl-row">
+                                <div class="dl-key">🪑 Coach / Seat</div>
+                                <div class="dl-val"><span class="coach-badge" id="tkt-seat">B2 — 3</span></div>
+                            </div>
+                            <div class="dl-row">
+                                <div class="dl-key">📅 Travel Date</div>
+                                <div class="dl-val">Sat, 11 Apr, 2026</div>
+                            </div>
+                            <div class="dl-row">
+                                <div class="dl-key">🏷️ Ticket Type</div>
+                                <div class="dl-val"><span class="tatkal-badge-sm" id="tkt-quota">TATKAL</span></div>
+                            </div>
+                            <div class="dl-row">
+                                <div class="dl-key">🛏️ Berth</div>
+                                <div class="dl-val" id="tkt-berth">Lower Berth</div>
+                            </div>
+                            <div class="dl-row">
+                                <div class="dl-key">🚃 Class</div>
+                                <div class="dl-val" id="tkt-class2">3A — AC 3 Tier</div>
+                            </div>
+                            <div class="dl-row" id="tkt-insurance-row">
+                                <div class="dl-key">🛡️ Insurance</div>
+                                <div class="dl-val" id="tkt-insurance" style="color:var(--green);font-weight:600">✓ Covered (₹0.45)</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ticket-ft">
+                        <div class="tft-qr">
+                            <div class="tft-qr-box" id="stationQrBox">▦</div>
+                            <div class="tft-qr-lbl">Scan at station</div>
+                        </div>
+                        <div class="tft-fare">
+                            <div class="fare-row"><span>Base Fare</span><span id="tkt-base">₹1,405</span></div>
+                            <div class="fare-row"><span>Tatkal Charge</span><span>₹400</span></div>
+                            <div class="fare-row" id="tkt-ins-fare-row"><span>Insurance</span><span>₹0.45</span></div>
+                            <hr class="fare-divider">
+                            <div class="fare-total"><span style="font-weight:600;color:var(--muted)">Total Paid</span><span id="tkt-total">₹1,805</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ticket-actions">
+                <button class="ta-outline" onclick="downloadTicketPDF()">⬇ Download Ticket</button>
+                <button class="ta-fill" onclick="showScreen('scrBookings')">≡ View My Bookings</button>
+            </div>
+            <div class="share-link">
+                <button onclick="shareWhatsApp()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Share on WhatsApp
+      </button>
+            </div>
+            <div class="demo-note">This is a simulated ticket for demo purposes only. Not valid for actual travel.</div>
+        </div>
+
+        <!-- ══ SCREEN 5: MY BOOKINGS ══ -->
+        <div class="screen" id="scrBookings">
+            <button class="back-link" onclick="showScreen('scrTicket')">← Back to Ticket</button>
+            <div class="bookings-header">
+                <h2>My Bookings</h2><span class="bookings-count">3 bookings</span></div>
+            <div class="booking-item">
+                <div class="bi-header">
+                    <div>
+                        <div class="bi-train-name">Mumbai Rajdhani Express</div>
+                        <div class="bi-train-num">#12951 · 3A / 2A</div>
+                    </div>
+                    <div class="bi-status confirmed">✅ Confirmed</div>
+                </div>
+                <div class="bi-body">
+                    <div>
+                        <div class="bi-field-lbl">From</div>
+                        <div class="bi-field-val">Mumbai Central</div>
+                    </div>
+                    <div>
+                        <div class="bi-field-lbl">To</div>
+                        <div class="bi-field-val">New Delhi</div>
+                    </div>
+                    <div>
+                        <div class="bi-field-lbl">Travel Date</div>
+                        <div class="bi-field-val">Sat, 11 Apr 2026</div>
+                    </div>
+                    <div>
+                        <div class="bi-field-lbl">Seat</div>
+                        <div class="bi-field-val">Coach B2 — 3</div>
+                    </div>
+                </div>
+                <div class="bi-footer">
+                    <div class="bi-pnr">PNR: <span>10943763</span></div><button class="bi-view-btn" onclick="showScreen('scrTicket')">View Ticket →</button></div>
+            </div>
+            <div class="booking-item">
+                <div class="bi-header">
+                    <div>
+                        <div class="bi-train-name">Shatabdi Express</div>
+                        <div class="bi-train-num">#12009 · CC / EC</div>
+                    </div>
+                    <div class="bi-status confirmed">✅ Confirmed</div>
+                </div>
+                <div class="bi-body">
+                    <div>
+                        <div class="bi-field-lbl">From</div>
+                        <div class="bi-field-val">Mumbai Central</div>
+                    </div>
+                    <div>
+                        <div class="bi-field-lbl">To</div>
+                        <div class="bi-field-val">New Delhi</div>
+                    </div>
+                    <div>
+                        <div class="bi-field-lbl">Travel Date</div>
+                        <div class="bi-field-val">Mon, 14 Apr 2026</div>
+                    </div>
+                    <div>
+                        <div class="bi-field-lbl">Seat</div>
+                        <div class="bi-field-val">Coach C1 — 14</div>
+                    </div>
+                </div>
+                <div class="bi-footer">
+                    <div class="bi-pnr">PNR: <span>29802650</span></div><button class="bi-view-btn" onclick="showScreen('scrTicket')">View Ticket →</button></div>
+            </div>
+            <div class="booking-item">
+                <div class="bi-header">
+                    <div>
+                        <div class="bi-train-name">Karnataka Express</div>
+                        <div class="bi-train-num">#22691 · 1A / 2A / 3A</div>
+                    </div>
+                    <div class="bi-status waitlisted">⏳ Waitlisted</div>
+                </div>
+                <div class="bi-body">
+                    <div>
+                        <div class="bi-field-lbl">From</div>
+                        <div class="bi-field-val">Mumbai Central</div>
+                    </div>
+                    <div>
+                        <div class="bi-field-lbl">To</div>
+                        <div class="bi-field-val">New Delhi</div>
+                    </div>
+                    <div>
+                        <div class="bi-field-lbl">Travel Date</div>
+                        <div class="bi-field-val">Wed, 16 Apr 2026</div>
+                    </div>
+                    <div>
+                        <div class="bi-field-lbl">Seat</div>
+                        <div class="bi-field-val">WL / 4</div>
+                    </div>
+                </div>
+                <div class="bi-footer">
+                    <div class="bi-pnr">PNR: <span>50919417</span></div><button class="bi-view-btn" onclick="showScreen('scrTicket')">View Ticket →</button></div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /page -->
+
+    <!-- ══════════════════════════════════════
+     PAYMENT MODAL — ALL 4 METHODS
+══════════════════════════════════════ -->
+    <div class="overlay" id="payOverlay">
+        <div class="modal">
+            <div class="modal-hd">
+                <div class="mh-left">
+                    <div class="secure-lbl">🔒 Secure Payment</div>
+                    <h3>Complete Your Payment</h3>
+                    <div class="sub">Your seat is temporarily reserved</div>
+                </div>
+                <button class="close-x" onclick="closePayment()">✕</button>
+            </div>
+            <div class="modal-body">
+
+                <!-- Seat timer -->
+                <div class="seat-timer">
+                    <div class="st-top"><span>⚠️ Seat reserved for:</span><span class="st-time" id="seatTimerEl">00:00:30</span></div>
+                    <div class="st-bar">
+                        <div class="st-fill" id="stFill" style="width:100%"></div>
+                    </div>
+                    <div class="st-note">Complete payment before the timer ends or the seat will be released.</div>
+                </div>
+
+                <!-- Booking Summary (dynamically filled) -->
+                <div class="booking-summary">
+                    <div class="bs-title">📋 Booking Summary</div>
+                    <div class="bs-row"><span class="bk">🚆 Train</span><span class="bv">Mumbai Rajdhani Express <span style="color:var(--muted);font-size:11.5px">#12951</span></span>
+                    </div>
+                    <div class="bs-row"><span class="bk">📍 Route</span><span class="bv">Mumbai → New Delhi</span></div>
+                    <div class="bs-row"><span class="bk">📅 Travel Date</span><span class="bv">Sat, 11 Apr, 2026</span></div>
+                    <div class="bs-row"><span class="bk">👤 Passenger</span><span class="bv" id="pay-passenger">Rahul Sharma</span></div>
+                    <div class="bs-row"><span class="bk">🚃 Class</span><span class="bv" id="pay-class">3A — AC 3 Tier</span></div>
+                    <div class="bs-row"><span class="bk">🛏️ Berth</span><span class="bv" id="pay-berth">Lower Berth</span></div>
+                    <div class="bs-row"><span class="bk">🏷️ Quota</span><span class="tatkal-val">⚡ TATKAL</span></div>
+                    <div class="bs-total">
+                        <div>
+                            <div class="bs-total-label">Total Payable</div>
+                            <div class="bs-total-sub" id="pay-total-sub">incl. ₹400 tatkal + ₹0.45 insurance</div>
+                        </div>
+                        <div class="bs-total-price" id="pay-total-price">₹1,805</div>
+                    </div>
+                </div>
+
+                <!-- Payment method tabs -->
+                <div class="pay-method-label">Select Payment Method</div>
+                <div class="pay-methods">
+                    <button class="pm-btn active" onclick="setPayMethod(this,'upi')"><div class="pm-ico">📱</div><div class="pm-lbl">UPI</div></button>
+                    <button class="pm-btn" onclick="setPayMethod(this,'card')"><div class="pm-ico">💳</div><div class="pm-lbl">Card</div></button>
+                    <button class="pm-btn" onclick="setPayMethod(this,'nb')"><div class="pm-ico">🏦</div><div class="pm-lbl">Net Banking</div></button>
+                    <button class="pm-btn" onclick="setPayMethod(this,'wallet')"><div class="pm-ico">👛</div><div class="pm-lbl">Wallet</div></button>
+                </div>
+
+                <!-- ── UPI PANEL ── -->
+                <div class="pay-panel" id="panelUpi">
+
+                    <!-- Top: QR section -->
+                    <div class="upi-qr-block">
+                        <div class="upi-qr-card">
+                            <div class="upi-qr-header">
+                                <span class="upi-qr-badge">IRCTC · Tatkal</span>
+                                <span class="upi-qr-amount">₹1,805</span>
+                            </div>
+                            <div class="upi-qr-frame">
+                                <div class="upi-qr-corner tl"></div>
+                                <div class="upi-qr-corner tr"></div>
+                                <div class="upi-qr-corner bl"></div>
+                                <div class="upi-qr-corner br"></div>
+                                <div id="upiQrWrap"></div>
+                            </div>
+                            <div class="upi-qr-footer">
+                                <div class="upi-qr-vpa">irctc@sbi</div>
+                                <div class="upi-qr-scan-hint">📷 Scan with any UPI app</div>
+                            </div>
+                        </div>
+                        <!-- App buttons -->
+                        <div class="upi-app-row">
+                            <button class="upi-app-pill gpay" onclick="openUpiApp('gpay')">
+              <span class="uap-dot g1">G</span><span class="uap-dot g2">o</span><span class="uap-dot g3">o</span><span class="uap-dot g4">g</span><span style="margin-left:2px">Pay</span>
+            </button>
+                            <button class="upi-app-pill phonepe" onclick="openUpiApp('phonepe')">
+              <span style="font-size:14px">💜</span> PhonePe
+            </button>
+                            <button class="upi-app-pill paytm" onclick="openUpiApp('paytm')">
+              <span style="font-size:14px">🔵</span> Paytm
+            </button>
+                        </div>
+                    </div>
+
+                    <!-- Divider -->
+                    <div class="upi-divider"><span>or pay using UPI ID</span></div>
+
+                    <!-- Bottom: UPI ID input -->
+                    <div class="upi-id-block">
+                        <div class="upi-id-input-row">
+                            <div class="upi-id-wrap">
+                                <span class="upi-id-icon">📱</span>
+                                <input class="upi-id-field" type="text" id="upiIdInput" placeholder="yourname@okaxis / name@ybl" oninput="liveUpiHint(this.value)">
+                            </div>
+                            <button class="upi-send-btn" id="upiSendBtn" onclick="verifyUpiId()">
+              <span id="upiSendTxt">Send Request</span>
+            </button>
+                        </div>
+                        <div class="upi-id-hint" id="upiIdHint"></div>
+                        <div class="upi-request-info" id="upiRequestInfo" style="display:none">
+                            <span style="font-size:16px">📲</span>
+                            <div>Payment request of <strong>₹1,805</strong> sent to <strong id="upiRequestTarget"></strong> — approve on your UPI app</div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ── CARD PANEL ── -->
+                <div class="pay-panel" id="panelCard" style="display:none">
+                    <div class="card-form">
+                        <div class="cf-row">
+                            <div class="cf-field">
+                                <label class="cf-label">Card Number</label>
+                                <input class="cf-input" type="text" id="cardNumber" placeholder="1234  5678  9012  3456" maxlength="19" oninput="formatCardNumber(this)">
+                            </div>
+                        </div>
+                        <div class="cf-row-2">
+                            <div class="cf-field">
+                                <label class="cf-label">Name on Card</label>
+                                <input class="cf-input" type="text" id="cardName" placeholder="RAHUL SHARMA" oninput="this.value=this.value.toUpperCase()">
+                            </div>
+                            <div class="cf-field cf-small">
+                                <label class="cf-label">Expiry</label>
+                                <input class="cf-input" type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5" oninput="formatExpiry(this)">
+                            </div>
+                            <div class="cf-field cf-small">
+                                <label class="cf-label">CVV</label>
+                                <input class="cf-input" type="password" id="cardCvv" placeholder="•••" maxlength="3">
+                            </div>
+                        </div>
+                        <div class="card-type-logos">
+                            <span class="ct-logo visa">VISA</span>
+                            <span class="ct-logo mc">MC</span>
+                            <span class="ct-logo rupay">RuPay</span>
+                            <span class="ct-logo amex">AMEX</span>
+                        </div>
+                        <div class="cf-hint" id="cardHint"></div>
+                    </div>
+                </div>
+
+                <!-- ── NET BANKING PANEL ── -->
+                <div class="pay-panel" id="panelNb" style="display:none">
+                    <div class="nb-grid">
+                        <button class="nb-bank active" onclick="selectBank(this,'SBI')">
+            <div class="nb-bank-logo" style="background:#22609a;color:#fff">SBI</div>
+            <div class="nb-bank-name">State Bank</div>
+          </button>
+                        <button class="nb-bank" onclick="selectBank(this,'HDFC')">
+            <div class="nb-bank-logo" style="background:#004c8f;color:#fff">HD</div>
+            <div class="nb-bank-name">HDFC Bank</div>
+          </button>
+                        <button class="nb-bank" onclick="selectBank(this,'ICICI')">
+            <div class="nb-bank-logo" style="background:#f47920;color:#fff">IC</div>
+            <div class="nb-bank-name">ICICI Bank</div>
+          </button>
+                        <button class="nb-bank" onclick="selectBank(this,'AXIS')">
+            <div class="nb-bank-logo" style="background:#97144d;color:#fff">AX</div>
+            <div class="nb-bank-name">Axis Bank</div>
+          </button>
+                        <button class="nb-bank" onclick="selectBank(this,'PNB')">
+            <div class="nb-bank-logo" style="background:#003366;color:#fff">PNB</div>
+            <div class="nb-bank-name">Punjab Natl</div>
+          </button>
+                        <button class="nb-bank" onclick="selectBank(this,'BOB')">
+            <div class="nb-bank-logo" style="background:#f05a28;color:#fff">BOB</div>
+            <div class="nb-bank-name">Bank of Baroda</div>
+          </button>
+                    </div>
+                    <div class="nb-creds">
+                        <div class="cf-field" style="margin-bottom:10px">
+                            <label class="cf-label">Net Banking User ID</label>
+                            <input class="cf-input" type="text" id="nbUserId" placeholder="Enter your bank user ID">
+                        </div>
+                        <div class="cf-field">
+                            <label class="cf-label">Password</label>
+                            <input class="cf-input" type="password" id="nbPassword" placeholder="Enter your password">
+                        </div>
+                        <div class="nb-redirect-note">🔒 You will be securely redirected to <strong id="nbBankName">SBI</strong> NetBanking portal</div>
+                    </div>
+                </div>
+
+                <!-- ── WALLET PANEL ── -->
+                <div class="pay-panel" id="panelWallet" style="display:none">
+                    <div class="wallet-grid">
+                        <button class="wallet-btn active" onclick="selectWallet(this,'Paytm Wallet')">
+            <div class="wallet-logo" style="background:#00baf2;color:#fff">₱</div>
+            <div class="wallet-name">Paytm</div>
+            <div class="wallet-bal">Bal: ₹2,340</div>
+          </button>
+                        <button class="wallet-btn" onclick="selectWallet(this,'Amazon Pay')">
+            <div class="wallet-logo" style="background:#f90;color:#fff">A</div>
+            <div class="wallet-name">Amazon Pay</div>
+            <div class="wallet-bal">Bal: ₹450</div>
+          </button>
+                        <button class="wallet-btn" onclick="selectWallet(this,'Mobikwik')">
+            <div class="wallet-logo" style="background:#5a3ea1;color:#fff">M</div>
+            <div class="wallet-name">Mobikwik</div>
+            <div class="wallet-bal">Bal: ₹0</div>
+          </button>
+                        <button class="wallet-btn" onclick="selectWallet(this,'Freecharge')">
+            <div class="wallet-logo" style="background:#e91e63;color:#fff">F</div>
+            <div class="wallet-name">Freecharge</div>
+            <div class="wallet-bal">Bal: ₹120</div>
+          </button>
+                    </div>
+                    <div class="wallet-selected-note" id="walletNote">
+                        💳 Paying ₹1,805 from <strong id="walletName">Paytm Wallet</strong>. Balance after payment: <strong id="walletAfter">₹535</strong>
+                    </div>
+                </div>
+
+                <!-- Pay Now button + SSL note -->
+                <button class="pay-now-btn" id="payNowBtn" onclick="processPayment()">🔒 Pay Now ₹1,805</button>
+                <div class="ssl-note">🔒 256-bit SSL encrypted · Secured by IRCTC Payment Gateway</div>
+
+            </div>
+            <!-- /modal-body -->
+        </div>
+    </div>
+
+    <!-- Payment Processing Overlay -->
+    <div class="overlay" id="processingOverlay">
+        <div class="processing-box">
+            <div class="proc-spinner"></div>
+            <div class="proc-title" id="procTitle">Processing Payment…</div>
+            <div class="proc-sub" id="procSub">Please do not close this window</div>
+            <div class="proc-steps" id="procSteps"></div>
+        </div>
+    </div>
+
+    <script src="irctc-app.js"></script>
+</body>
+
+</html>
