@@ -3,6 +3,16 @@
    ================================================ */
 
 // -- BACKEND CONNECTION --
+(Get - Content "C:\Users\rukmi_1pe9zzu\Desktop\Code\IRCTC Tatkal Simulation\frontend\irctc-app.js") - replace '\/\/ -- BACKEND CONNECTION --', '// -- AUTH GUARD --
+if (!localStorage.getItem("token")) {
+    window.location.href = "irctc-auth.html";
+}
+// -- AUTH GUARD --
+if (!localStorage.getItem('token')) {
+    window.location.href = 'irctc-auth.html';
+}
+
+// -- BACKEND CONNECTION --' | Set-Content "C:\Users\rukmi_1pe9zzu\Desktop\Code\IRCTC Tatkal Simulation\frontend\irctc-app.js"
 const BASE_URL = 'https://irctc-tatkal-simulation-production.up.railway.app/api';
 
 function getToken() { return localStorage.getItem('token'); }
