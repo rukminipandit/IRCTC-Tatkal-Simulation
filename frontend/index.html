@@ -41,13 +41,13 @@
                     <div class="search-fields">
                         <div class="autocomplete-wrap">
                             <div class="sf-label"><span class="dot-pin dp-from"></span> From Station</div>
-                            <input class="sf-input" type="text" id="fromInput" value="Enter source station" placeholder="Enter source station" autocomplete="off" oninput="acFilter('from')" onfocus="acFilter('from')" onblur="acClose('from',300)">
+                            <input class="sf-input" type="text" id="fromInput" placeholder="Enter source station" autocomplete="off" oninput="acFilter('from')" onfocus="acFilter('from')" onblur="acClose('from',300)">
                             <div class="autocomplete-dropdown" id="acFrom"></div>
                         </div>
                         <button class="swap-circle" onclick="swapStations()" title="Swap">⇄</button>
                         <div class="autocomplete-wrap">
                             <div class="sf-label"><span class="dot-pin dp-to"></span> To Station</div>
-                            <input class="sf-input" type="text" id="toInput" value="Enter Destination" placeholder="Enter destination" autocomplete="off" oninput="acFilter('to')" onfocus="acFilter('to')" onblur="acClose('to',300)">
+                            <input class="sf-input" type="text" id="toInput" placeholder="Enter destination" autocomplete="off" oninput="acFilter('to')" onfocus="acFilter('to')" onblur="acClose('to',300)">
                             <div class="autocomplete-dropdown" id="acTo"></div>
                         </div>
                         <button class="search-btn" onclick="doSearch()">
