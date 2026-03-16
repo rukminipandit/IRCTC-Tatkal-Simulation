@@ -1,7 +1,10 @@
 /* ================================================
    IRCTC Tatkal Booking Simulator - JavaScript
    ================================================ */
+localStorage.removeItem('token');
+localStorage.removeItem('user');
 
+if (!localStorage.getItem('token')) { window.location.href = 'irctc-auth.html'; }
 // -- AUTH GUARD --
 if (!localStorage.getItem('token')) {
     window.location.href = 'irctc-auth.html';
