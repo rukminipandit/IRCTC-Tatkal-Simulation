@@ -6,10 +6,6 @@ if (!localStorage.getItem('token')) { window.location.href = 'irctc-auth.html'; 
 if (!localStorage.getItem('token')) {
     window.location.href = 'irctc-auth.html';
 }
-
-localStorage.removeItem('token');
-localStorage.removeItem('user');
-
 if (!localStorage.getItem('token')) { window.location.href = 'irctc-auth.html'; }
 
 function getToken() { return localStorage.getItem('token'); }
