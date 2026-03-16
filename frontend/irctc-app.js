@@ -89,7 +89,7 @@ function acFilter(field) {
     const inputEl = document.getElementById(field === 'from' ? 'fromInput' : 'toInput');
     const ddEl = document.getElementById(field === 'from' ? 'acFrom' : 'acTo');
     const q = inputEl.value.trim().toLowerCase();
-    const filtered = q.length === 0 ? STATIONS.slice(0, 10) : STATIONS.filter(function(s) {
+    const filtered = q.length === 0 ? STATIONS.slice(0, 21) : STATIONS.filter(function(s) {
         return s.name.toLowerCase().includes(q) || s.code.toLowerCase().includes(q) || s.state.toLowerCase().includes(q);
     }).slice(0, 8);
     ddEl.innerHTML = filtered.map(function(s) {
