@@ -182,6 +182,8 @@
     </div>
 
     <script>
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
         const INVALID_AADHAAR_PREFIXES = ['0000', '1111', '9999'];
 
         function switchTab(tab) {
