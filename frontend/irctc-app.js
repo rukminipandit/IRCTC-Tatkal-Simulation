@@ -7,6 +7,12 @@ if (!localStorage.getItem('token')) {
     window.location.href = 'irctc-auth.html';
 }
 
+function getToken() { return localStorage.getItem('token'); }
+
+function getUser() {
+    const u = localStorage.getItem('user');
+    return u ? JSON.parse(u) : null;
+}
 // -- BACKEND CONNECTION --
 const BASE_URL = 'https://irctc-tatkal-simulation-production.up.railway.app/api';
 
