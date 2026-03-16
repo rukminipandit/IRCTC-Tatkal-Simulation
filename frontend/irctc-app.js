@@ -1031,6 +1031,11 @@ async function loadMyBookings() {
 
 // -- AUTO FILL PASSENGER NAME FROM LOGGED IN USER --
 window.addEventListener('load', function() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        window.location.href = 'irctc-auth.html';
+        return;
+    }
     const userData = getUser();
     if (userData) {
         const nameField = document.getElementById('passengerName');
