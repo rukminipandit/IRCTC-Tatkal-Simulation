@@ -5,6 +5,8 @@
 > **Hackathon Submission — ACM MPSTME | Full Stack Track**
 > _Demonstrating real-world solutions to the high-concurrency race condition problem in ticket booking systems_
 
+### Link Deployed via Railway and Vercel:
+>https://irctc-tatkal-simulation-git-master-rukminipandits-projects.vercel.app?_vercel_share=o5HOD1frIYtVIr4itt11q6OPSkLQuCeq
 ---
 
 ## 📋 Table of Contents
@@ -551,11 +553,11 @@ node server.js
 
 ## 👥 Team Members
 
-| Name        | Role             | Responsibility |
-| ----------- | ---------------- | -------------- | -------- | -------------------------------------------------------------- |
-| **Rukmini** | **Assist Krupa** |                | Backend  | MySQL schema, Express API, atomic booking, JWT auth, Socket.io |
-| **Sara**    | **Assist Krupa** |                | Frontend | HTML/CSS UI, booking flow, payment modal, ticket design        |
-
+| Name        | Role             | Responsibility | Tools used                                                     |
+| ----------- | ---------------- | -------------- | -------------------------------------------------------------- |
+| **Rukmini** | **Backend Lead** |  Backend       | MySQL schema, Express API, atomic booking, JWT auth, Socket.io |
+| **Sara**    | **Fronted Lead** |  Frontend      | HTML/CSS UI, booking flow, payment modal, ticket design        |
+| **Krupa**   |**Assist on both**|  Both          |                                                                |
 ---
 
 ## 📦 Prerequisites
@@ -645,8 +647,104 @@ USE irctc_db;
 INSERT INTO trains (train_number, train_name, source, destination, departure_time, arrival_time, total_seats, available_seats, price, journey_date) VALUES
 ('12951', 'Mumbai Rajdhani', 'Mumbai', 'Delhi', '16:00:00', '08:00:00', 100, 100, 1500.00, '2026-03-20'),
 ('12952', 'Delhi Rajdhani', 'Delhi', 'Mumbai', '17:00:00', '09:00:00', 100, 100, 1500.00, '2026-03-20'),
+('12009', 'Shatabdi Express', 'Mumbai', 'Ahmedabad', '06:25:00', '13:10:00', 150, 150, 700.00, '2026-03-20'),
+('12010', 'Shatabdi Express', 'Ahmedabad', 'Mumbai', '14:05:00', '20:40:00', 150, 150, 700.00, '2026-03-20'),
+('11001', 'Chennai Express', 'Mumbai', 'Chennai', '06:00:00', '23:00:00', 150, 150, 800.00, '2026-03-20'),
+('11002', 'Chennai Express', 'Chennai', 'Mumbai', '21:00:00', '13:00:00', 150, 150, 800.00, '2026-03-20'),
+('12137', 'Punjab Mail', 'Mumbai', 'Amritsar', '19:30:00', '13:00:00', 150, 150, 1050.00, '2026-03-20'),
+('12138', 'Punjab Mail', 'Amritsar', 'Mumbai', '11:00:00', '05:00:00', 150, 150, 1050.00, '2026-03-20'),
+('12903', 'Golden Temple Mail', 'Mumbai', 'Amritsar', '21:00:00', '15:00:00', 150, 150, 1100.00, '2026-03-20'),
+('12904', 'Golden Temple Mail', 'Amritsar', 'Mumbai', '17:00:00', '11:00:00', 150, 150, 1100.00, '2026-03-20'),
+('12127', 'Intercity Express', 'Mumbai', 'Pune', '06:05:00', '08:35:00', 200, 200, 250.00, '2026-03-20'),
+('12128', 'Intercity Express', 'Pune', 'Mumbai', '07:15:00', '09:45:00', 200, 200, 250.00, '2026-03-20'),
+('12123', 'Deccan Queen', 'Mumbai', 'Pune', '07:15:00', '10:25:00', 200, 200, 280.00, '2026-03-20'),
+('12124', 'Deccan Queen', 'Pune', 'Mumbai', '17:15:00', '20:25:00', 200, 200, 280.00, '2026-03-20'),
+('12109', 'Panchavati Express', 'Mumbai', 'Nashik', '06:20:00', '09:45:00', 180, 180, 200.00, '2026-03-20'),
+('12110', 'Panchavati Express', 'Nashik', 'Mumbai', '14:30:00', '17:55:00', 180, 180, 200.00, '2026-03-20'),
+('12263', 'Pune Rajdhani', 'Pune', 'Delhi', '17:00:00', '10:00:00', 100, 100, 1400.00, '2026-03-20'),
+('12264', 'Pune Rajdhani', 'Delhi', 'Pune', '22:00:00', '15:00:00', 100, 100, 1400.00, '2026-03-20'),
+('12215', 'Bangalore Rajdhani', 'Bangalore', 'Delhi', '20:00:00', '06:00:00', 100, 100, 1800.00, '2026-03-20'),
+('12216', 'Bangalore Rajdhani', 'Delhi', 'Bangalore', '21:30:00', '07:30:00', 100, 100, 1800.00, '2026-03-20'),
+('12627', 'Karnataka Express', 'Bangalore', 'Delhi', '19:45:00', '06:00:00', 120, 120, 1200.00, '2026-03-20'),
+('12628', 'Karnataka Express', 'Delhi', 'Bangalore', '22:30:00', '09:00:00', 120, 120, 1200.00, '2026-03-20'),
+('22691', 'Rajdhani Express', 'Bangalore', 'Mumbai', '09:00:00', '20:00:00', 120, 120, 850.00, '2026-03-20'),
+('22692', 'Rajdhani Express', 'Mumbai', 'Bangalore', '08:00:00', '19:00:00', 120, 120, 850.00, '2026-03-20'),
+('12027', 'Shatabdi Express', 'Bangalore', 'Chennai', '06:00:00', '11:00:00', 150, 150, 500.00, '2026-03-20'),
+('12028', 'Shatabdi Express', 'Chennai', 'Bangalore', '15:00:00', '20:00:00', 150, 150, 500.00, '2026-03-20'),
+('12079', 'Janshatabdi', 'Bangalore', 'Hyderabad', '06:15:00', '14:30:00', 180, 180, 450.00, '2026-03-20'),
+('12080', 'Janshatabdi', 'Hyderabad', 'Bangalore', '15:30:00', '23:45:00', 180, 180, 450.00, '2026-03-20'),
+('12433', 'Rajdhani Express', 'Chennai', 'Delhi', '06:00:00', '10:00:00', 120, 120, 1600.00, '2026-03-20'),
+('12434', 'Rajdhani Express', 'Delhi', 'Chennai', '22:00:00', '06:00:00', 120, 120, 1600.00, '2026-03-20'),
+('12657', 'Chennai Mail', 'Chennai', 'Hyderabad', '22:45:00', '08:00:00', 150, 150, 550.00, '2026-03-20'),
+('12658', 'Chennai Mail', 'Hyderabad', 'Chennai', '08:00:00', '17:15:00', 150, 150, 550.00, '2026-03-20'),
+('12163', 'Chennai Express', 'Chennai', 'Pune', '06:00:00', '22:00:00', 150, 150, 750.00, '2026-03-20'),
+('12164', 'Chennai Express', 'Pune', 'Chennai', '08:00:00', '23:00:00', 150, 150, 750.00, '2026-03-20'),
 ('12301', 'Howrah Rajdhani', 'Kolkata', 'Delhi', '14:00:00', '10:00:00', 120, 120, 1200.00, '2026-03-20'),
-('11001', 'Chennai Express', 'Mumbai', 'Chennai', '06:00:00', '23:00:00', 150, 150, 800.00, '2026-03-20');
+('12302', 'Howrah Rajdhani', 'Delhi', 'Kolkata', '17:00:00', '13:00:00', 120, 120, 1200.00, '2026-03-20'),
+('12471', 'Swaraj Express', 'Kolkata', 'Mumbai', '08:00:00', '18:00:00', 150, 150, 900.00, '2026-03-20'),
+('12472', 'Swaraj Express', 'Mumbai', 'Kolkata', '09:00:00', '19:00:00', 150, 150, 900.00, '2026-03-20'),
+('12303', 'Poorva Express', 'Kolkata', 'Delhi', '08:00:00', '06:00:00', 150, 150, 950.00, '2026-03-20'),
+('12304', 'Poorva Express', 'Delhi', 'Kolkata', '10:00:00', '08:00:00', 150, 150, 950.00, '2026-03-20'),
+('12557', 'Sapt Kranti', 'Patna', 'Delhi', '19:00:00', '06:00:00', 120, 120, 750.00, '2026-03-20'),
+('12558', 'Sapt Kranti', 'Delhi', 'Patna', '19:30:00', '06:30:00', 120, 120, 750.00, '2026-03-20'),
+('12311', 'Kalka Mail', 'Kolkata', 'Delhi', '19:30:00', '08:00:00', 150, 150, 850.00, '2026-03-20'),
+('12312', 'Kalka Mail', 'Delhi', 'Kolkata', '07:30:00', '20:00:00', 150, 150, 850.00, '2026-03-20'),
+('12001', 'Bhopal Shatabdi', 'Delhi', 'Bhopal', '06:00:00', '13:55:00', 150, 150, 900.00, '2026-03-20'),
+('12002', 'Bhopal Shatabdi', 'Bhopal', 'Delhi', '14:30:00', '22:25:00', 150, 150, 900.00, '2026-03-20'),
+('12015', 'Ajmer Shatabdi', 'Delhi', 'Ajmer', '06:05:00', '12:30:00', 150, 150, 700.00, '2026-03-20'),
+('12016', 'Ajmer Shatabdi', 'Ajmer', 'Delhi', '14:00:00', '20:25:00', 150, 150, 700.00, '2026-03-20'),
+('12029', 'Amritsar Shatabdi', 'Delhi', 'Amritsar', '07:20:00', '13:10:00', 150, 150, 750.00, '2026-03-20'),
+('12030', 'Amritsar Shatabdi', 'Amritsar', 'Delhi', '16:30:00', '22:20:00', 150, 150, 750.00, '2026-03-20'),
+('12229', 'Lucknow Rajdhani', 'Delhi', 'Lucknow', '18:00:00', '22:30:00', 100, 100, 600.00, '2026-03-20'),
+('12230', 'Lucknow Rajdhani', 'Lucknow', 'Delhi', '06:00:00', '10:30:00', 100, 100, 600.00, '2026-03-20'),
+('12915', 'Ashram Express', 'Delhi', 'Ahmedabad', '15:00:00', '06:00:00', 150, 150, 950.00, '2026-03-20'),
+('12916', 'Ashram Express', 'Ahmedabad', 'Delhi', '17:40:00', '08:40:00', 150, 150, 950.00, '2026-03-20'),
+('12559', 'Shiv Ganga Express', 'Delhi', 'Varanasi', '18:00:00', '06:00:00', 150, 150, 700.00, '2026-03-20'),
+('12560', 'Shiv Ganga Express', 'Varanasi', 'Delhi', '17:00:00', '05:00:00', 150, 150, 700.00, '2026-03-20'),
+('12317', 'Akal Takht Express', 'Delhi', 'Amritsar', '21:30:00', '05:30:00', 150, 150, 650.00, '2026-03-20'),
+('12318', 'Akal Takht Express', 'Amritsar', 'Delhi', '22:00:00', '06:00:00', 150, 150, 650.00, '2026-03-20'),
+('12259', 'Sealdah Duronto', 'Delhi', 'Kolkata', '08:10:00', '06:00:00', 120, 120, 1300.00, '2026-03-20'),
+('12260', 'Sealdah Duronto', 'Kolkata', 'Delhi', '08:05:00', '06:00:00', 120, 120, 1300.00, '2026-03-20'),
+('12267', 'Mumbai Duronto', 'Mumbai', 'Delhi', '23:00:00', '16:00:00', 120, 120, 1600.00, '2026-03-20'),
+('12268', 'Mumbai Duronto', 'Delhi', 'Mumbai', '23:25:00', '16:25:00', 120, 120, 1600.00, '2026-03-20'),
+('12239', 'Mumbai Rajdhani', 'Mumbai', 'Delhi', '14:00:00', '08:00:00', 100, 100, 1550.00, '2026-03-20'),
+('12240', 'Mumbai Rajdhani', 'Delhi', 'Mumbai', '14:05:00', '08:05:00', 100, 100, 1550.00, '2026-03-20'),
+('12431', 'Trivandrum Rajdhani', 'Delhi', 'Thiruvananthapuram', '10:55:00', '18:00:00', 100, 100, 2200.00, '2026-03-20'),
+('12432', 'Trivandrum Rajdhani', 'Thiruvananthapuram', 'Delhi', '19:00:00', '06:00:00', 100, 100, 2200.00, '2026-03-20'),
+('12617', 'Mangala Express', 'Delhi', 'Kochi', '22:00:00', '06:00:00', 150, 150, 2000.00, '2026-03-20'),
+('12618', 'Mangala Express', 'Kochi', 'Delhi', '19:00:00', '06:00:00', 150, 150, 2000.00, '2026-03-20'),
+('12283', 'Duronto Express', 'Delhi', 'Pune', '22:30:00', '18:00:00', 120, 120, 1500.00, '2026-03-20'),
+('12284', 'Duronto Express', 'Pune', 'Delhi', '22:00:00', '17:30:00', 120, 120, 1500.00, '2026-03-20'),
+('12621', 'Tamil Nadu Express', 'Delhi', 'Chennai', '22:30:00', '07:00:00', 150, 150, 1400.00, '2026-03-20'),
+('12622', 'Tamil Nadu Express', 'Chennai', 'Delhi', '22:00:00', '07:30:00', 150, 150, 1400.00, '2026-03-20'),
+('12613', 'Coromandel Express', 'Kolkata', 'Chennai', '14:30:00', '05:30:00', 150, 150, 1100.00, '2026-03-20'),
+('12614', 'Coromandel Express', 'Chennai', 'Kolkata', '08:45:00', '23:45:00', 150, 150, 1100.00, '2026-03-20'),
+('12839', 'Howrah Express', 'Chennai', 'Kolkata', '23:00:00', '20:00:00', 150, 150, 1000.00, '2026-03-20'),
+('12840', 'Howrah Express', 'Kolkata', 'Chennai', '23:10:00', '20:10:00', 150, 150, 1000.00, '2026-03-20'),
+('12875', 'Neelachal Express', 'Hyderabad', 'Kolkata', '06:00:00', '06:00:00', 150, 150, 1050.00, '2026-03-20'),
+('12876', 'Neelachal Express', 'Kolkata', 'Hyderabad', '23:00:00', '23:00:00', 150, 150, 1050.00, '2026-03-20'),
+('12723', 'Telangana Express', 'Hyderabad', 'Delhi', '06:00:00', '06:00:00', 150, 150, 1300.00, '2026-03-20'),
+('12724', 'Telangana Express', 'Delhi', 'Hyderabad', '22:45:00', '22:45:00', 150, 150, 1300.00, '2026-03-20'),
+('12693', 'Pearl City Express', 'Chennai', 'Hyderabad', '06:50:00', '15:00:00', 150, 150, 500.00, '2026-03-20'),
+('12694', 'Pearl City Express', 'Hyderabad', 'Chennai', '17:10:00', '05:20:00', 150, 150, 500.00, '2026-03-20'),
+('12591', 'Gorakhpur Express', 'Delhi', 'Gorakhpur', '21:00:00', '07:00:00', 150, 150, 600.00, '2026-03-20'),
+('12592', 'Gorakhpur Express', 'Gorakhpur', 'Delhi', '20:30:00', '06:30:00', 150, 150, 600.00, '2026-03-20'),
+('12461', 'Mandore Express', 'Delhi', 'Jodhpur', '23:00:00', '06:45:00', 150, 150, 700.00, '2026-03-20'),
+('12462', 'Mandore Express', 'Jodhpur', 'Delhi', '17:30:00', '06:00:00', 150, 150, 700.00, '2026-03-20'),
+('12985', 'Jaipur Express', 'Delhi', 'Jaipur', '06:00:00', '10:30:00', 150, 150, 400.00, '2026-03-20'),
+('12986', 'Jaipur Express', 'Jaipur', 'Delhi', '17:00:00', '21:30:00', 150, 150, 400.00, '2026-03-20'),
+('12617', 'Guwahati Express', 'Delhi', 'Guwahati', '10:00:00', '06:00:00', 150, 150, 1800.00, '2026-03-20'),
+('12618', 'Guwahati Express', 'Guwahati', 'Delhi', '08:00:00', '06:00:00', 150, 150, 1800.00, '2026-03-20'),
+('12505', 'North East Express', 'Kolkata', 'Guwahati', '07:00:00', '15:30:00', 150, 150, 600.00, '2026-03-20'),
+('12506', 'North East Express', 'Guwahati', 'Kolkata', '06:00:00', '14:30:00', 150, 150, 600.00, '2026-03-20'),
+('12669', 'Gangakaveri Express', 'Chennai', 'Bangalore', '22:00:00', '05:30:00', 150, 150, 450.00, '2026-03-20'),
+('12670', 'Gangakaveri Express', 'Bangalore', 'Chennai', '22:30:00', '06:00:00', 150, 150, 450.00, '2026-03-20'),
+('16527', 'Kannur Express', 'Bangalore', 'Kochi', '21:00:00', '07:00:00', 150, 150, 600.00, '2026-03-20'),
+('16528', 'Kannur Express', 'Kochi', 'Bangalore', '08:00:00', '18:00:00', 150, 150, 600.00, '2026-03-20'),
+('12977', 'Ajmer Express', 'Ajmer', 'Mumbai', '05:45:00', '07:00:00', 150, 150, 900.00, '2026-03-20'),
+('12978', 'Ajmer Express', 'Mumbai', 'Ajmer', '19:00:00', '20:15:00', 150, 150, 900.00, '2026-03-20'),
+('12909', 'Bandra Garib Rath', 'Mumbai', 'Delhi', '15:35:00', '07:25:00', 200, 200, 900.00, '2026-03-20'),
+('12910', 'Bandra Garib Rath', 'Delhi', 'Mumbai', '15:40:00', '07:30:00', 200, 200, 900.00, '2026-03-20');
 ```
 
 ### Step 4: Configure Environment
